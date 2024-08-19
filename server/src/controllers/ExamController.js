@@ -4,7 +4,8 @@ const {
     updateMemberExam,
     deleteExam,
     getExamById,
-    getComingExam
+    getComingExam,
+    getExamByIdFull
 } = require('../services/ExamService');
 const examController = {
     addExam: async (req, res) => {
@@ -74,6 +75,22 @@ const examController = {
         try {
             const {examId} = req.params;
             const response = await getExamById(examId);
+            if (response.error) {
+                return res.status(400).json(response);
+            }
+            return res.status(200).json(response);
+        } catch (error) {
+            return res.status(500).json({
+                data: null,
+                error: true,
+                message: error.message || error
+            });
+        }
+    },
+    getExamByIdFull: async (req, res) => {
+        try {
+            const {examId} = req.params;
+            const response = await getExamByIdFull(examId);
             if (response.error) {
                 return res.status(400).json(response);
             }

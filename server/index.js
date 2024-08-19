@@ -21,7 +21,7 @@ app.use(bodyParser.json())
 //router
 router(app)
 app.use('/', (req, res) => {
-    res.send('Hello World')
+    res.send('404')
 })
 //connect to db
 connectDB().then(() => {

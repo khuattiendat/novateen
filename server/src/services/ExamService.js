@@ -127,7 +127,37 @@ const getComingExam = async () => {
 }
 const getExamById = async (examId) => {
     try {
-        const exam = await ExamModel.findById(examId).populate('questions').populate('members');
+        const exam = await ExamModel.findById(examId)
+            .populate({
+                path: 'questions',
+                select: 'question options.option options._id' // only include 'question' and 'options.option'
+            })
+            .populate('members');
+        if (!exam) {
+            return {
+                data: null,
+                error: true,
+                message: 'Exam not found'
+            }
+        }
+        return {
+            data: exam,
+            error: false,
+            message: 'Exam fetched successfully'
+        }
+    } catch (error) {
+        return {
+            data: null,
+            error: true,
+            message: error.message || error
+        }
+    }
+}
+const getExamByIdFull = async (examId) => {
+    try {
+        const exam = await ExamModel.findById(examId)
+            .populate('questions')
+            .populate('members');
         if (!exam) {
             return {
                 data: null,
@@ -210,5 +240,6 @@ module.exports = {
     updateMemberExam,
     deleteExam,
     getComingExam,
-    getExamById
+    getExamById,
+    getExamByIdFull
 }

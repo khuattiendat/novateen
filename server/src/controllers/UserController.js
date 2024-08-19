@@ -1,4 +1,4 @@
-const {updateUser, deleteUser} = require("../services/UserService");
+const {updateUser, deleteUser, getAllUser} = require("../services/UserService");
 const UserController = {
     updateUser: async (req, res) => {
         try {
@@ -21,6 +21,21 @@ const UserController = {
         try {
             const {id} = req.params;
             const response = await deleteUser(id);
+            if (response.error) {
+                return res.status(400).json(response);
+            }
+            return res.status(200).json(response);
+        } catch (error) {
+            return res.status(500).json({
+                data: null,
+                error: true,
+                message: error.message || error
+            });
+        }
+    },
+    getAllUser: async (req, res) => {
+        try {
+            const response = await getAllUser();
             if (response.error) {
                 return res.status(400).json(response);
             }

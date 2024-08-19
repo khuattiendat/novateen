@@ -10,14 +10,42 @@ const ExamUserSchema = new mongoose.Schema({
     },
     answers:
         {
-            correctAnswer: {
-                type: [mongoose.Schema.Types.ObjectId],
-                ref: 'Question'
-            },
-            wrongAnswer: {
-                type: [mongoose.Schema.Types.ObjectId],
-                ref: 'Question'
-            }
+            selectedAnswer: [
+                {
+                    question_id: {
+                        type: mongoose.Schema.Types.ObjectId,
+                        ref: 'Question'
+                    },
+                    option_id: {
+                        type: mongoose.Schema.Types.ObjectId,
+                        ref: 'Option'
+                    }
+                }
+            ],
+            correctAnswer: [
+                {
+                    question_id: {
+                        type: mongoose.Schema.Types.ObjectId,
+                        ref: 'Question'
+                    },
+                    option_id: {
+                        type: mongoose.Schema.Types.ObjectId,
+                        ref: 'Option'
+                    }
+                }
+            ],
+            wrongAnswer: [
+                {
+                    question_id: {
+                        type: mongoose.Schema.Types.ObjectId,
+                        ref: 'Question'
+                    },
+                    option_id: {
+                        type: mongoose.Schema.Types.ObjectId,
+                        ref: 'Option'
+                    }
+                }
+            ]
         },
     score: {
         type: Number

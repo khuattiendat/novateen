@@ -48,7 +48,25 @@ const deleteUser = async (id) => {
         }
     }
 }
+const getAllUser = async () => {
+    try {
+        const users = await UserModel.find({});
+        return {
+            data: users,
+            error: false,
+            message: 'Get all users successfully'
+        }
+    } catch (error) {
+        return {
+            data: null,
+            error: true,
+            message: error.message || error
+        }
+    }
+
+}
 module.exports = {
     updateUser,
-    deleteUser
+    deleteUser,
+    getAllUser
 }

@@ -34,8 +34,7 @@ const ExamUserController = {
     },
     getExamUserByUserId: async (req, res) => {
         try {
-            console.log(req.body)
-            const {userId, examId} = req.body?.data;
+            const {userId, examId} = req.body;
             const response = await getExamUserByUserId(userId, examId);
             if (response.error) {
                 return res.status(400).json(response);
