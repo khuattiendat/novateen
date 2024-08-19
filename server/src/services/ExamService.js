@@ -2,7 +2,17 @@ const ExamModel = require('../models/ExamModel');
 const {getQuestionLimit, checkCountQuestion} = require("./QuestionService");
 const addExam = async (data) => {
     try {
-        const {title, startTime, members, endTime, date, description, number_of_question, createdBy} = data;
+        const {
+            title,
+            startTime,
+            members,
+            endTime,
+            date,
+            description,
+            time_announce_result,
+            number_of_question,
+            createdBy
+        } = data;
         if (!title) {
             return {
                 data: null,
@@ -38,6 +48,13 @@ const addExam = async (data) => {
                 message: 'Please provide number of questions'
             }
         }
+        if (!time_announce_result) {
+            return {
+                data: null,
+                error: true,
+                message: 'Please provide a time to announce result'
+            }
+        }
         if (!createdBy) {
             return {
                 data: null,
@@ -61,6 +78,7 @@ const addExam = async (data) => {
             endTime,
             date,
             description,
+            time_announce_result,
             number_of_question,
             questions: questions?.data,
             createdBy
@@ -71,7 +89,8 @@ const addExam = async (data) => {
             error: false,
             message: 'Exam added successfully'
         }
-    } catch (error) {
+    } catch
+        (error) {
         return {
             data: null,
             error: true,

@@ -22,6 +22,10 @@ const ExamSchema = new mongoose.Schema({
         type: String,
         required: [true, 'Please provide a date']
     },
+    time_announce_result: {
+        type: String,
+        required: [true, 'Please provide a time to announce result']
+    },
     description: {
         type: String,
     },
